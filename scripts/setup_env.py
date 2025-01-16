@@ -36,7 +36,9 @@ def activate_and_install():
 
     if platform.system().lower().startswith("win"):
         # For Windows (using cmd)
-        command = 'cmd /c "' ".venv\\Scripts\\activate && " 'make install"'
+        command = (
+            'powershell -Command "& { . .venv\\Scripts\\Activate.ps1; make install }"'
+        )
     else:
         # For Unix-like systems (Linux, macOS)
         command = 'bash -c "' "source .venv/bin/activate && " 'make install"'
