@@ -20,15 +20,26 @@ jobs:
         with:
           python-version: "3.11" # 指定 Python 版本
 
+      - name: Install Allure
+        env:
+          ALLURE_VERSION: '2.19.0'  # 指定 Allure 版本
+        run: |
+          # 下载 Allure 二进制文件
+          wget https://github.com/allure-framework/allure2/releases/download/v$ALLURE_VERSION/allure-$ALLURE_VERSION.tgz
+          
+          # 解压下载的文件
+          tar -zxvf allure-$ALLURE_VERSION.tgz
+          
+          # 将 Allure 添加到 PATH
+          sudo mv allure-$ALLURE_VERSION /opt/allure
+          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+          
+          # 验证安装是否成功
+          allure --version
+
       - name: Install dependencies
         run: |
           make install
-
-      - name: Install Allure CLI
-        run: |
-          curl -o allure.zip -L https://github.com/allure-framework/allure2/releases/latest/download/allure-commandline.zip
-          unzip allure.zip -d /opt/allure
-          sudo ln -s /opt/allure/bin/allure /usr/local/bin/allure
 
       - name: Run tests and generate report
         run: make test-report
