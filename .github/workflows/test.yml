@@ -53,7 +53,7 @@ jobs:
           path: ./${{env.REPORT_DIR}}/coverage
 
       - name: Upload Test Report
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Test Report
           path: ./${{env.REPORT_DIR}}/test
