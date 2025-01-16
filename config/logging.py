@@ -3,7 +3,7 @@ import os
 
 DEBUG = (
     os.environ.get("DEBUG", "False").lower() == "true"
-    or os.environ.get("ACTIONS_STEP_DEBUG", "False").lower() == "true"
+    or os.environ.get("RUNNER_DEBUG") == "1"
 )
 LEVEL = logging.DEBUG if DEBUG else logging.INFO
 
