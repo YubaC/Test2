@@ -2,11 +2,11 @@ import argparse
 import logging
 import os
 import shutil
-import subprocess
 import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from scripts.utils import run_subprocess  # noqa
 from config.logging import DEBUG, setup_logging  # noqa
 
 OUTPUT_DIR = "reports"
@@ -20,6 +20,7 @@ ARGUMENTS_DEFINTION = [
 
 PYTEST_ARGS = ["pytest"]
 PYTEST_ARGS_REPORT = PYTEST_ARGS + [
+    "--cov-report=term-missing",
     f"--cov-report=html:{OUTPUT_DIR}/coverage",
     f"--alluredir={OUTPUT_DIR}/allure-results",
 ]
@@ -36,47 +37,6 @@ def parse_args():
         parser.add_argument(*arg["flags"], **arg["kwargs"])
 
     return parser.parse_args()
-
-
-def run_subprocess(command, output=True):
-    """Run a subprocess command.
-
-    Args:
-        command (str): The command to run.
-
-    Returns:
-        int: The return code of the subprocess.
-    """
-    logging.debug(f"Running subprocess command: {command}")
-
-    try:
-        process = subprocess.Popen(
-            command,
-            shell=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT,
-            text=True,
-        )
-    except Exception as e:
-        if isinstance(e, OSError):
-            logging.error(f"Failed to start subprocess due to OS error: {e}")
-        else:
-            logging.error(f"Failed to start subprocess: {e}")
-        return 1
-
-    if process.poll() is not None:
-        logging.error("Subprocess failed to start: %s", process.poll())
-        return process.poll()
-
-    # Stream the subprocess output in real time
-    for line in process.stdout:
-        if output:
-            logging.info(line.strip("\n"))
-        elif DEBUG:
-            logging.debug(line.strip("\n"))
-
-    process.wait()
-    return process.returncode
 
 
 def clean_output():

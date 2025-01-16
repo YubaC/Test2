@@ -1,0 +1,42 @@
+;* This file configures the coverage settings for the project.
+;*
+;* It specifies which parts of the code should be included or omitted from the
+;* coverage report, and defines patterns for lines to exclude from coverage
+;* consideration.
+;*
+;* Copyright (c) 2015-2025 Yuba Technology. All rights reserved.
+;* This file is a collaborative effort of the Yuba Technology team
+;* and all contributors to the ${PROJECT_NAME} project.
+;*
+;* Licensed under the ${LICENSE_TYPE} license.
+
+[run]
+source = app
+branch  = True
+omit =
+     */TESTS/*
+
+[report]
+show_missing = True
+skip_covered = False
+
+; Regexes for lines to exclude from consideration
+exclude_lines =
+    ; Have to re-enable the standard pragma
+    pragma: no cover
+
+    ; Don't complain about missing debug-only code:
+    def __repr__
+    if DEBUG
+
+    ; Don't complain if tests don't hit defensive assertion code:
+    raise AssertionError
+    raise NotImplementedError
+    raise StepNotImplementedError
+
+    ; Don't complain if non-runnable code isn't run:
+    if 0:
+    if False:
+    if __name__ == .__main__.:
+
+ignore_errors = True
