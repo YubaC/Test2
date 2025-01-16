@@ -10,7 +10,7 @@ help:
 	@echo "    test-report to run the tests and generate a report"
 
 setup:
-	python scripts/setup.py
+	@python scripts/setup.py
 
 install:
 	python -m pip install --upgrade pip
@@ -18,17 +18,17 @@ install:
 	pip install -r requirements-dev.txt
 
 format:
-	python -m black .
+	@python -m black .
 
 lint:
-	python -m mypy .
-	python -m flake8 .
+	@python -m mypy .
+	@python -m flake8 .
 
 test:
-	python scripts/test.py
+	@python scripts/test.py
 
 test-report:
-	python scripts/test.py --report
+	@python scripts/test.py --report
 
 clean:
-	python scripts/clean.py
+	@python scripts/clean.py
