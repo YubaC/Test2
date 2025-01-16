@@ -35,7 +35,7 @@ class LoggingFormatter(logging.Formatter):
 
 
 def setup_logging():
-    """配置日志格式和处理器。"""
+    """Configure log format and processor."""
     handler = logging.StreamHandler()
     handler.setFormatter(LoggingFormatter(fmt="%(levelname)s %(message)s"))
 
