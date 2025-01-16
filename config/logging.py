@@ -1,7 +1,10 @@
 import logging
 import os
 
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+DEBUG = (
+    os.environ.get("DEBUG", "False") == "True"
+    or os.environ.get("ACTIONS_STEP_DEBUG", "False") == "true"
+)
 LEVEL = logging.DEBUG if DEBUG else logging.INFO
 
 
