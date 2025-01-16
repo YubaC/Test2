@@ -1,12 +1,12 @@
 help:
 	@echo "Please use 'make <target>' where <target> is one of"
-	@echo "    help      to show this message"
-	@echo "    clean     to clean the project, removing the cache and the reports"
-	@echo "    format    to format the code"
-	@echo "    install   to install the dependencies, including the development ones"
-	@echo "    lint      to lint the code"
-	@echo "    setup     to set up the virtual environment, and install the dependencies"
-	@echo "    test      to run the tests"
+	@echo "    help        to show this message"
+	@echo "    clean       to clean the project, removing the cache and the reports"
+	@echo "    format      to format the code"
+	@echo "    install     to install the dependencies, including the development ones"
+	@echo "    lint        to lint the code"
+	@echo "    setup       to set up the virtual environment, and install the dependencies"
+	@echo "    test        to run the tests"
 	@echo "    test-report to run the tests and generate a report"
 
 setup:
