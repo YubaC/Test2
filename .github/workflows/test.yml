@@ -10,7 +10,8 @@ on:
 env:
   ALLURE: "2.32.0"
   PYTHON: "3.11"
-  
+  REPORT_DIR: "reports"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -30,11 +31,11 @@ jobs:
           wget https://github.com/allure-framework/allure2/releases/download/${{env.ALLURE}}/allure-${{env.ALLURE}}.tgz
           # 解压下载的文件
           tar -zxvf allure-${{env.ALLURE}}.tgz
-          
+
           # 将 Allure 添加到 PATH
           sudo mv allure-${{env.ALLURE}} /opt/allure
           sudo ln -s /opt/allure/bin/allure /usr/bin/allure
-          
+
           # 验证安装是否成功
           allure --version
 
@@ -49,10 +50,10 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: Coverage Report
-          path: ./report/coverage
+          path: ./${{env.REPORT_DIR}}/coverage
 
       - name: Upload Test Report
         uses: actions/upload-artifact@v3
         with:
           name: Test Report
-          path: ./report/test
+          path: ./${{env.REPORT_DIR}}/test
