@@ -13,11 +13,11 @@ def install_venv():
     """
     Create a virtual environment (.venv directory) if it doesn't exist.
     """
-    logging.info("Checking and creating virtual environment...")
     if os.path.exists(".venv"):
         logging.info("Virtual environment already exists. Skipping creation.")
         return
 
+    logging.info("Creating virtual environment...")
     return_code = run_subprocess("python -m venv .venv")
     if return_code:
         raise Exception(
