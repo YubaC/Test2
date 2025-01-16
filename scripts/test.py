@@ -47,9 +47,6 @@ def run_subprocess(command, output=True):
     Returns:
         int: The return code of the subprocess.
     """
-    if DEBUG:
-        output = True
-
     logging.debug(f"Running subprocess command: {command}")
 
     try:
@@ -63,7 +60,8 @@ def run_subprocess(command, output=True):
     except Exception as e:
         if isinstance(e, OSError):
             logging.error(f"Failed to start subprocess due to OS error: {e}")
-        logging.error(f"Failed to start subprocess: {e}")
+        else:
+            logging.error(f"Failed to start subprocess: {e}")
         return 1
 
     if process.poll() is not None:
@@ -71,9 +69,11 @@ def run_subprocess(command, output=True):
         return process.poll()
 
     # Stream the subprocess output in real time
-    if output:
-        for line in process.stdout:
+    for line in process.stdout:
+        if output:
             logging.info(line.strip("\n"))
+        elif DEBUG:
+            logging.debug(line.strip("\n"))
 
     process.wait()
     return process.returncode
@@ -93,13 +93,7 @@ def convert_to_html():
     """Convert the pytest report to Allure format."""
     logging.debug("Converting pytest report to HTML through Allure...")
     return_code = run_subprocess(
-        [
-            "allure",
-            "generate",
-            f"{OUTPUT_DIR}/allure-results",
-            "-o",
-            f"{OUTPUT_DIR}/test",
-        ],
+        f"allure generate {OUTPUT_DIR}/allure-results -o {OUTPUT_DIR}/test --clean",
         False,
     )
     if return_code:
@@ -119,7 +113,7 @@ def run_tests(args):
     if not args.report:
         logging.debug("Running tests...No report requested.")
         try:
-            return_code = run_subprocess(PYTEST_ARGS)
+            return_code = run_subprocess(" ".join(PYTEST_ARGS))
         except Exception as e:
             logging.error(f"Failed to run tests: {e}")
             sys.exit(1)
