@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 env:
-  ALLURE_VERSION: "2.32.0"
-  PYTHON_VERSION: "3.11"
+  ALLURE: "2.32.0"
+  PYTHON: "3.11"
   
 jobs:
   build:
@@ -22,12 +22,12 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: PYTHON_VERSION
+          python-version: ${{env.PYTHON}}
 
       - name: Install Allure
         run: |
           # 下载 Allure 二进制文件
-          wget https://github.com/allure-framework/allure2/releases/download/$ALLURE_VERSION/allure-$ALLURE_VERSION.tgz
+          wget https://github.com/allure-framework/allure2/releases/download/${{env.ALLURE}}/allure-${{env.ALLURE}}.tgz
           # 解压下载的文件
           tar -zxvf allure-$ALLURE_VERSION.tgz
           
