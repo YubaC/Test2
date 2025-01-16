@@ -7,6 +7,9 @@ DEBUG = (
 )
 LEVEL = logging.DEBUG if DEBUG else logging.INFO
 
+for key, value in os.environ.items():
+    print(f"{key}: {value}")
+
 
 class LoggingFormatter(logging.Formatter):
     """Custom logging formatter.
