@@ -7,7 +7,7 @@ import sys
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from config.logging import setup_logging  # noqa
+from config.logging import DEBUG, setup_logging  # noqa
 
 OUTPUT_DIR = "reports"
 
@@ -47,6 +47,9 @@ def run_subprocess(command, output=True):
     Returns:
         int: The return code of the subprocess.
     """
+    if DEBUG:
+        output = True
+
     logging.debug(f"Running subprocess command: {command}")
 
     try:
@@ -100,7 +103,7 @@ def convert_to_html():
     if return_code:
         shutil.rmtree(OUTPUT_DIR)
         raise Exception(
-            "Failed to generate report. This is likely due to missing Allure CLI."
+            "Failed to generate report. This is likely due to missing Allure CLI. "
         )
     shutil.rmtree(f"{OUTPUT_DIR}/allure-results")
 
@@ -152,5 +155,5 @@ if __name__ == "__main__":
         if return_code:
             raise Exception(f"Tests failed with return code {return_code}")
     except Exception as e:
-        logging.error(f"Failed to run tests: {e}")
+        logging.error(f"Task failed: {e}")
         sys.exit(1)
