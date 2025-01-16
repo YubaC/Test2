@@ -21,10 +21,28 @@ def install_venv():
 
 def activate_venv():
     logging.info("Activating virtual environment...")
-    if os.name == "nt":
-        venv_path = ".venv/Scripts/activate"
-    else:
+
+    # Determine the shell type
+    shell = os.environ.get("SHELL")
+    # PowerShell
+    if "pwsh" in shell:
+        venv_path = ".venv/Scripts/Activate.ps1"
+        logging.debug("PowerShell detected.")
+    # CMD
+    if "cmd" in shell:
+        venv_path = ".venv/Scripts/activate.bat"
+        logging.debug("CMD detected.")
+    # MacOS (Bash or Zsh)
+    elif "zsh" in shell:
         venv_path = ".venv/bin/activate"
+        logging.debug("Zsh detected.")
+    # Bash
+    elif "bash" in shell:
+        venv_path = ".venv/bin/activate.sh"
+        logging.debug("Bash detected.")
+    else:
+        raise Exception("Unsupported shell type")
+
     return_code = run_subprocess(f"source {venv_path}")
     if return_code:
         raise Exception("Failed to activate virtual environment")
