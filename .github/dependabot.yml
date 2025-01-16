@@ -1,0 +1,22 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    labels:
+      - github_actions
+    schedule:
+      interval: weekly
+      day: friday
+      time: "12:00"
+      timezone: Asia/Shanghai
+  - package-ecosystem: "pip"
+    directory: "/"
+    labels:
+      - dependencies
+    schedule:
+      interval: weekly
+      day: friday
+      time: "12:00"
+      timezone: Asia/Shanghai
+    versioning-strategy: increase
+    rebase-strategy: disabled
