@@ -42,6 +42,7 @@ if __name__ == "__main__":
 
     try:
         install_venv()
+        activate_venv()
         install_requirements()
         logging.info("Environment setup complete.")
     except Exception as e:
