@@ -22,7 +22,7 @@ jobs:
 
       - name: Install Allure
         env:
-          ALLURE_VERSION: '2.19.0'  # 指定 Allure 版本
+          ALLURE_VERSION: '2.32.0'  # 指定 Allure 版本
         run: |
           # 下载 Allure 二进制文件
           wget https://github.com/allure-framework/allure2/releases/download/v$ALLURE_VERSION/allure-$ALLURE_VERSION.tgz
