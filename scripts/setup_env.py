@@ -19,6 +19,17 @@ def install_venv():
         raise Exception("Failed to install virtual environment with venv")
 
 
+def activate_venv():
+    logging.info("Activating virtual environment...")
+    if os.name == "nt":
+        venv_path = ".venv/Scripts/activate"
+    else:
+        venv_path = ".venv/bin/activate"
+    return_code = run_subprocess(f"source {venv_path}")
+    if return_code:
+        raise Exception("Failed to activate virtual environment")
+
+
 def install_requirements():
     logging.info("Installing requirements...")
     return_code = run_subprocess("make install")
