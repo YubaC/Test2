@@ -60,8 +60,10 @@ def run_subprocess(command, output=True):
             stderr=subprocess.STDOUT,
             text=True,
         )
-    except OSError as e:
-        logging.error(f"Failed to start subprocess due to OS error: {e}")
+    except Exception as e:
+        if isinstance(e, OSError):
+            logging.error(f"Failed to start subprocess due to OS error: {e}")
+        logging.error(f"Failed to start subprocess: {e}")
         return 1
 
     if process.poll() is not None:
@@ -147,9 +149,6 @@ def run_tests(args):
 
 
 if __name__ == "__main__":
-    for key, value in os.environ.items():
-        print(f"{key}: {value}")
-
     setup_logging()
 
     try:
