@@ -1,0 +1,46 @@
+name: Test and Report
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11" # 指定 Python 版本
+
+      - name: Install dependencies
+        run: |
+          make install
+
+      - name: Install Allure CLI
+        run: |
+          sudo apt-add-repository ppa:qameta/allure
+          sudo apt-get update
+          sudo apt-get install allure
+
+      - name: Run tests and generate report
+        run: make test-report
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: Coverage Report
+          path: ./report/coverage
+
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: Test Report
+          path: ./report/test

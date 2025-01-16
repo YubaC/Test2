@@ -1,0 +1,11 @@
+[flake8]
+max-line-length = 88
+exclude = .venv, __pycache__, build, dist
+select =
+    B,     # flake8-bugbear
+    C,
+    E,
+    F,
+    W,
+    D203,  # docstrings 相关
+    I
