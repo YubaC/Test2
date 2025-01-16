@@ -10,7 +10,7 @@ help:
 	@echo "    test-report to run the tests and generate a report"
 
 setup:
-	@python scripts/setup.py
+	@python scripts/setup_env.py
 
 install:
 	python -m pip install --upgrade pip
