@@ -29,10 +29,10 @@ jobs:
           # 下载 Allure 二进制文件
           wget https://github.com/allure-framework/allure2/releases/download/${{env.ALLURE}}/allure-${{env.ALLURE}}.tgz
           # 解压下载的文件
-          tar -zxvf allure-$ALLURE_VERSION.tgz
+          tar -zxvf allure-${{env.ALLURE}}.tgz
           
           # 将 Allure 添加到 PATH
-          sudo mv allure-$ALLURE_VERSION /opt/allure
+          sudo mv allure-${{env.ALLURE}} /opt/allure
           sudo ln -s /opt/allure/bin/allure /usr/bin/allure
           
           # 验证安装是否成功
