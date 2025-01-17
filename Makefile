@@ -15,7 +15,7 @@ ifeq ($(OS),Windows_NT)
 endif
 
 setup:
-	$(PYTHON) scripts/setup_env.py
+	@$(PYTHON) scripts/setup_env.py
 
 install:
 	$(PYTHON) -m pip install --upgrade pip
