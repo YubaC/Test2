@@ -7,6 +7,10 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from config.logging import DEBUG  # noqa
 
+# If system is Windows, we can use `python` to run the command
+# In Unix-like systems, we need to use `python3` instead
+PY_CMD = "python" if os.name == "nt" else "python3"
+
 
 def run_subprocess(command, output=True):
     """Run a subprocess command.
