@@ -9,14 +9,13 @@ help:
 	@echo "    test        to run the tests"
 	@echo "    test-report to run the tests and generate a report"
 
+PYTHON = python3
 ifeq ($(OS),Windows_NT)
-	PYTHON=python
-else
-	PYTHON=python3
+	PYTHON = python
 endif
 
 setup:
-	@$(PYTHON) scripts/setup_env.py
+	$(PYTHON) scripts/setup_env.py
 
 install:
 	$(PYTHON) -m pip install --upgrade pip
