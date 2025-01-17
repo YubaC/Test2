@@ -13,6 +13,7 @@ ifeq ($(OS),Windows_NT)
 	PYTHON=python
 else
 	PYTHON=python3
+endif
 
 setup:
 	@$(PYTHON) scripts/setup_env.py
