@@ -56,6 +56,13 @@ if __name__ == "__main__":
         install_venv()
         activate_and_install()
         logging.info("Environment setup complete.")
+
+        active_cmd = "source .venv/bin/activate"
+        if platform.system().lower().startswith("win"):
+            active_cmd = ".venv\\Scripts\\Activate.ps1"
+        logging.info(
+            f'You can now activate the virtual environment by running "{active_cmd}".'
+        )
     except Exception as e:
         logging.error(f"Environment setup failed: {e}")
         sys.exit(1)
