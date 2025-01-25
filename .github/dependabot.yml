@@ -2,17 +2,29 @@ version: 2
 updates:
   - package-ecosystem: "github-actions"
     directory: "/"
-    labels:
-      - github_actions
     schedule:
       interval: weekly
       day: friday
       time: "12:00"
       timezone: Asia/Shanghai
-  - package-ecosystem: "pip"
+    target-branch: main
+
+  - package-ecosystem: "github-actions"
     directory: "/"
+    schedule:
+      interval: weekly
+      day: friday
+      time: "12:00"
+      timezone: Asia/Shanghai
+    target-branch: develop
+
+  - package-ecosystem: npm
+    directory: "/"
+    reviewers:
+      - "@yuba-technology/frontend-team"
     labels:
       - dependencies
+      - frontend
     schedule:
       interval: weekly
       day: friday
@@ -20,3 +32,20 @@ updates:
       timezone: Asia/Shanghai
     versioning-strategy: increase
     rebase-strategy: disabled
+    target-branch: main
+
+  - package-ecosystem: npm
+    directory: "/"
+    reviewers:
+      - "@yuba-technology/backend-team"
+    labels:
+      - dependencies
+      - backend
+    schedule:
+      interval: weekly
+      day: friday
+      time: "12:00"
+      timezone: Asia/Shanghai
+    versioning-strategy: increase
+    rebase-strategy: disabled
+    target-branch: develop
